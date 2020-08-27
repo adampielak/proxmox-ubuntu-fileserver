@@ -1,4 +1,6 @@
 # Proxmox Ubuntu CT File Server (NAS)
+The Ubuntu File Server is supported by a Proxmox ZFS Raid hosted on a Proxmox node (typhoon-01). Data is served by a Proxmox Ubuntu 18.04 CT (cyclone-01) installed with network protocols like NFS, samba and configured to manage all user accounts, file security and permissions and more.
+
 The following is for creating a Proxmox Ubuntu CT File Server built on our primary Proxmox node typhoon-01.
 
 Network Prerequisites are:
@@ -23,10 +25,18 @@ Tasks to be performed are:
 
 
 ## 1.00 Hardware and System Specifications
-The File Server is supported by a Proxmox ZFS Raid hosted on typhoon-01. Data is served by a Proxmox Ubuntu 18.04 CT (cyclone-01) hosted on node typhoon-01 installed with network protocols like NFS, samba and configured to manage all user accounts, file security and permissions and more.
 
-### 1.01 Hardware prerequisites of the host computer
-Here are the prequisites to build a Ubuntu CT File Server (NAS).
+### 1.01 Proxmox Host Installed Memory RAM
+ZFS depends heavily on memory, so you need at least 16GB to start (Recommend 32GB). In practice, use as much you can get for your hardware/budget. To prevent data corruption, we recommend the use of high quality ECC RAM (if your mainboard supports EEC).
+
+### 1.02 Proxmox Host SSD Cache
+It is recommend you create two different SSD caches that a ZFS pool can make use of for High Speed disk I/O:
+
+*  ZFS Intent Log, or ZIL, to buffer WRITE operations.
+*  ARC and L2ARC which are meant for READ operations.
+
+#### 1.02A Proxmox VE SSD Cache
+
 
 * Mandantory Prerequisite (A) - Proxmox Host RAM
   Minimum of 16GB. Recommend 32Gb RAM.
