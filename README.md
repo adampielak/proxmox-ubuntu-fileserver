@@ -31,13 +31,13 @@ Tasks to be performed are:
 
 
 ## 1.00 NAS Hardware and System Prerequisites
-In my network my primary Proxmox node is my workhorse server. My hardware configuration is shown in the Proxmox node build tutorial [Build Type A - Proxmox File Server - Primary Host](https://github.com/ahuacate/proxmox-node#proxmox-node-setup).
+In my network my primary Proxmox node is my most powerful server. My hardware build configuration is shown in the Proxmox node build tutorial [Build Type A - Proxmox File Server - Primary Host](https://github.com/ahuacate/proxmox-node#proxmox-node-setup).
 
 ### 1.01 Proxmox Host installed Memory RAM
 ZFS depends heavily on memory, so you need at least 16GB to start (Recommend 32GB). In practice, use as much you can get for your hardware/budget. To prevent data corruption, we recommend the use of high quality ECC RAM (if your mainboard supports EEC).
 
 ### 1.02 Proxmox Host SSD Cache
-ZFS allows for tiered caching of data through the use of memory. We recommend you setup two SSD caches so your ZFS pool can make use of cache for High Speed disk I/O:
+ZFS allows for tiered caching of data through the use of memory caches. We recommend you setup two SSD caches so your ZFS pool can make use of cache for High Speed disk I/O:
 
 *  ZFS Intent Log, or ZIL, to buffer WRITE operations.
 *  ARC and L2ARC which are meant for READ operations.
