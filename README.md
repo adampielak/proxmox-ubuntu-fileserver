@@ -24,18 +24,31 @@ Tasks to be performed are:
 
 
 
-## 1.00 Hardware and System Specifications
+## 1.00 Hardware and System Prerequisites
 
 ### 1.01 Proxmox Host Installed Memory RAM
 ZFS depends heavily on memory, so you need at least 16GB to start (Recommend 32GB). In practice, use as much you can get for your hardware/budget. To prevent data corruption, we recommend the use of high quality ECC RAM (if your mainboard supports EEC).
 
 ### 1.02 Proxmox Host SSD Cache
-It is recommend you create two different SSD caches that a ZFS pool can make use of for High Speed disk I/O:
+ZFS allows for tiered caching of data through the use of memory.
+
+It is recommend you setup two SSD caches so your ZFS pool can make use of for High Speed disk I/O:
 
 *  ZFS Intent Log, or ZIL, to buffer WRITE operations.
 *  ARC and L2ARC which are meant for READ operations.
 
-#### 1.02A Proxmox VE SSD Cache
+We recommend you leave some unallocated disk space on your Proxmox nodes SSD for ZFS Cache. But you can also install dedicated SSDs in your node for the task.
+
+**Proxmox VE SSD ZFS Cache Setup - Recommended**
+
+You must configure your Ubuntu CT NAS host Proxmox VE installation in accordance with our instructions shown here:
+
+*  [2.01 Proxmox VE OS Install - Build Type A](https://github.com/ahuacate/proxmox-node/blob/master/README.md#201-proxmox-ve-os-install---build-type-a)
+*  [2.05 Partition Hard Drive(s) - Build Type A](https://github.com/ahuacate/proxmox-node/blob/master/README.md#205-partition-hard-drives---build-type-a)
+
+If you followed our instructions [2.01](https://github.com/ahuacate/proxmox-node/blob/master/README.md#201-proxmox-ve-os-install---build-type-a) you would've resized your PVE installation to leave unallocated disk space on your Proxmox host SSD(s). This unallocated space is required for partitioning for ZFS Logs and Cache shown in the step [2.05](https://github.com/ahuacate/proxmox-node/blob/master/README.md#205-partition-hard-drives---build-type-a).
+
+
 
 
 * Mandantory Prerequisite (A) - Proxmox Host RAM
