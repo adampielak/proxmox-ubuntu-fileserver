@@ -23,8 +23,10 @@ Optional Prerequisites are:
 - [x] You require a working SMTP mail server account so the server can send alerts (We recommend you use mailgun.com smtp servers)
 - [x] pfSense is fully configured including steps [PFSENSE-SETUP](https://github.com/ahuacate/pfsense-setup) and [PFSENSE-HAPROXY](https://github.com/ahuacate/pfsense-haproxy). All remote access will be via PfSense HAProxy.
 
+
 Tasks to be performed are:
 - [About LXC Homelab Installations](#about-lxc-homelab-installations)
+
 
 
 
@@ -73,6 +75,8 @@ In the next steps our build scripts will give you the option to create a ZFS Rai
 |**RAIDZ1**|A variation on RAID-5, single parity. Requires at least 3 disks.
 |**RAIDZ2**|A variation on RAID-5, double parity. Requires at least 4 disks.
 |**RAIDZ3**|A variation on RAID-5, triple parity. Requires at least 5 disks.
+
+We warn during installation all data on the storage hard disks will be destroyed and is not recoverable!
 
 ## 2.00 Required Credentials for creating your NAS
 Here is a list of user account credentials and variable information you should have readily available for input prior to executing our NAS build scripts.
