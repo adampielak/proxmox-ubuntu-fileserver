@@ -1,5 +1,7 @@
 # Proxmox Ubuntu CT File Server (NAS)
-The Ubuntu File Server is supported by a Proxmox ZFS Raid hosted on a Proxmox node (typhoon-01). Data is served by a Proxmox Ubuntu 18.04 CT (cyclone-01) installed with network protocols like NFS, samba and configured to manage all user accounts, file security and permissions and more.
+The Ubuntu File Server is supported by a Proxmox ZFS Raid hosted on a Proxmox node (`typhoon-01`). Data is served by a Proxmox Ubuntu 18.04 CT (`cyclone-01`) installed with network protocols like NFS, samba and configured to manage all user accounts, file security and permissions, Webmin for management and more.
+
+By default the new File Server (NAS) hostname is `cyclone-01`.
 
 The following is for creating a Proxmox Ubuntu CT File Server built on our primary Proxmox node typhoon-01.
 
@@ -26,15 +28,13 @@ Tasks to be performed are:
 
 
 
-## 1.00 Hardware and System Prerequisites
+## 1.00 NAS Hardware and System Prerequisites
 
 ### 1.01 Proxmox Host installed Memory RAM
 ZFS depends heavily on memory, so you need at least 16GB to start (Recommend 32GB). In practice, use as much you can get for your hardware/budget. To prevent data corruption, we recommend the use of high quality ECC RAM (if your mainboard supports EEC).
 
 ### 1.02 Proxmox Host SSD Cache
-ZFS allows for tiered caching of data through the use of memory.
-
-It is recommend you setup two SSD caches so your ZFS pool can make use of cache for High Speed disk I/O:
+ZFS allows for tiered caching of data through the use of memory. We recommend you setup two SSD caches so your ZFS pool can make use of cache for High Speed disk I/O:
 
 *  ZFS Intent Log, or ZIL, to buffer WRITE operations.
 *  ARC and L2ARC which are meant for READ operations.
@@ -60,7 +60,9 @@ If you use a dedicated cache and/or log disk, you should use an enterprise class
 
 
 ### 1.03 Installation of Storage Disks
-We recommend you install a minimum of 3x NAS certified rotational hard disks in your host. In the next steps our build scripts will give you the option to create a ZFS Raid of your hard disks with the following options:
+We recommend you install a minimum of 3x NAS certified rotational hard disks in your host. When installing the disks make a note of logical SATA ports ID you are connecting each hard disk to. This will help you identify which disks to format and use to create your ZFS Pool with.
+
+In the next steps our build scripts will give you the option to create a ZFS Raid of your hard disks with the following options:
 
 | ZFS Raid Type | Description
 | :---  | :--- 
@@ -71,4 +73,16 @@ We recommend you install a minimum of 3x NAS certified rotational hard disks in 
 |**RAIDZ2**|A variation on RAID-5, double parity. Requires at least 4 disks.
 |**RAIDZ3**|A variation on RAID-5, triple parity. Requires at least 5 disks.
 
+## 2.00 Required Credentials for creating your NAS
+Here is a list of user account credentials and information you should have readily available for input prior to executing our NAS scripts.
 
+### 2.01 SMTP Server Credentials
+During the course of the installation you will have the option to install a SSMTP Email server. SSMTP is Mail Transfer Agent (MTA) used to send email alerts about your machine like unwarranted login attempts and other system critical alerts to the system’s designated administrator.
+
+You will be required to input the details or credentials of a SMTP Server. You can use Gmail, Godaddy, AWS or any SMTP server credentials (i.e address, port, username and password, encryption type etc.
+
+But we recommend you create a account at mailgun.com to relay your NAS emails to your designated administrator. With mailgun you are not potentially exposing your private email server credentials held within a text file on your NAS. This is a added layer of security.
+
+
+## 3.00 Create your File Server
+We have written a Proxmox Ubuntu CT File Server (NAS) bash script to guide you through the steps in creating fully file server.
