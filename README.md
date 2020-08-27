@@ -13,6 +13,7 @@ Network Prerequisites are:
 Mandantory Prerequisites are:
 - [x] Proxmox node built and configured as per [PROXMOX-NODE BUILDING](https://github.com/ahuacate/proxmox-node/blob/master/README.md#proxmox-node-building)
 - [x] Proxmox node installed with a minimum of 16Gb of RAM (Recommend 32Gb EEC Ram)
+- [x] Proxmox VE is installed enterprise class SSD(s)
 - [x] Proxmox node installed with a minimum of 3x NAS certified rotational hard disks
 
 Optional Prerequisites are:
