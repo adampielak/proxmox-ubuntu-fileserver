@@ -1,9 +1,9 @@
 # Proxmox Ubuntu CT File Server (NAS)
-The Ubuntu File Server is supported by a Proxmox ZFS Raid hosted on a Proxmox node (`typhoon-01`). Data is served by a Proxmox Ubuntu 18.04 CT (`cyclone-01`) installed with network protocols like NFS, samba and configured to manage all user accounts, file security and permissions, Webmin for management and more.
+The Ubuntu File Server is supported by a Proxmox ZFS Raid hosted on a Proxmox node (in my case I use my primary Proxmox node - `typhoon-01`). Data is served by a Proxmox Ubuntu 18.04 CT (`cyclone-01`) installed with network protocols like NFS, Samba and configured to manage all user accounts, file security and permissions and more. General administration is done using the Ubuntu Webmin webgui management suite.
 
 By default the new File Server (NAS) hostname is `cyclone-01`.
 
-The following is for creating a Proxmox Ubuntu CT File Server built on our primary Proxmox node typhoon-01.
+The following is for creating a Proxmox Ubuntu CT File Server built on your primary Proxmox node typhoon-01.
 
 Network Prerequisites are:
 - [x] Layer 2 Network Switches
@@ -20,8 +20,8 @@ Mandantory Prerequisites are:
 
 Optional Prerequisites are:
 - [x] Proxmox node configured with SSD ZFS Cache (Highly Recommended)
-- [x] You have a working SMTP mail server account (We recommend mailgun.com)
-- [x] pfSense is fully configured including steps [PFSENSE-SETUP](https://github.com/ahuacate/pfsense-setup) and [PFSENSE-HAPROXY](https://github.com/ahuacate/pfsense-haproxy)
+- [x] You require a working SMTP mail server account so the server can send alerts (We recommend you use mailgun.com smtp servers)
+- [x] pfSense is fully configured including steps [PFSENSE-SETUP](https://github.com/ahuacate/pfsense-setup) and [PFSENSE-HAPROXY](https://github.com/ahuacate/pfsense-haproxy). All remote access will be via PfSense HAProxy.
 
 Tasks to be performed are:
 - [About LXC Homelab Installations](#about-lxc-homelab-installations)
@@ -29,6 +29,7 @@ Tasks to be performed are:
 
 
 ## 1.00 NAS Hardware and System Prerequisites
+In my network my primary Proxmox node is my workhorse server. My hardware configuration is shown in the Proxmox node build tutorial [Build Type A - Proxmox File Server - Primary Host](https://github.com/ahuacate/proxmox-node#proxmox-node-setup).
 
 ### 1.01 Proxmox Host installed Memory RAM
 ZFS depends heavily on memory, so you need at least 16GB to start (Recommend 32GB). In practice, use as much you can get for your hardware/budget. To prevent data corruption, we recommend the use of high quality ECC RAM (if your mainboard supports EEC).
@@ -52,7 +53,7 @@ Also make sure your Proxmox VE node SSD are enterprise class SSD(s). Standard co
 
 **Dedicated SSD ZFS Cache Setup**
 
-This is the more costly solution. 
+This is the more costly solution with no net performance gain. 
 
 If you choose not use your hosts Proxmox VE SSD(s) for ZFS Cache then you can install 2x dedicated SSD disks for the task. These SSD disk need not be larger than 120GB but must be of identical size. Again we warn, during installation all data on the SSD disks will be destroyed and is not recoverable!
 
@@ -74,14 +75,37 @@ In the next steps our build scripts will give you the option to create a ZFS Rai
 |**RAIDZ3**|A variation on RAID-5, triple parity. Requires at least 5 disks.
 
 ## 2.00 Required Credentials for creating your NAS
-Here is a list of user account credentials and information you should have readily available for input prior to executing our NAS scripts.
+Here is a list of user account credentials and variable information you should have readily available for input prior to executing our NAS build scripts.
 
-### 2.01 SMTP Server Credentials
+### 2.01 Your System’s designated Administrator Email
+You need to have your system’s designated administrator email address. All server alerts and server activity notifications will be sent to this email address. A Gmail works great.
+
+### 2.02 SMTP Server Credentials
 During the course of the installation you will have the option to install a SSMTP Email server. SSMTP is Mail Transfer Agent (MTA) used to send email alerts about your machine like unwarranted login attempts and other system critical alerts to the system’s designated administrator.
 
 You will be required to input the details or credentials of a SMTP Server. You can use Gmail, Godaddy, AWS or any SMTP server credentials (i.e address, port, username and password, encryption type etc.
 
 But we recommend you create a account at mailgun.com to relay your NAS emails to your designated administrator. With mailgun you are not potentially exposing your private email server credentials held within a text file on your NAS. This is a added layer of security.
+
+### 2.03 NAS Hostname
+By default it is `cyclone-01`. With our NAS hostname naming convention you can create secondary backup servers with hostnames like `cyclone-02` and so on. You may change the hostname to to whatever you like. But for networking, use of all our scripts, hostname resolving, we recommend you use the default hostname.
+
+### 2.04 NAS IPv4 Address
+By default it is `192.168.1.10/24`. You may change it to whatever IPv4 address you want. Just note the VLAN.
+
+### 2.05 Network VLAN Aware
+You must answer a script prompt asking if your network is VLAN aware. The script will resolve your NAS VLAN ID automatically.
+
+### 2.06 NAS Gateway IPv4 Address
+The script will attempt to find your Gateway IPv4 address. Confirm with `Enter` or type in the correct IP address.
+
+### 2.06 NAS Root Password
+Have a password ready.
+
+
+
+
+
 
 
 ## 3.00 Create your File Server
