@@ -1,6 +1,8 @@
 # Proxmox Ubuntu CT File Server (NAS)
 The Ubuntu File Server is supported by a Proxmox ZFS Raid hosted on a Proxmox node (in my case I use my primary Proxmox node - `typhoon-01`). Data is served by a Proxmox Ubuntu 18.04 CT (`cyclone-01`) installed with network protocols like NFS, Samba and configured to manage all user accounts, file security and permissions and more. General administration is done using the Ubuntu Webmin webgui management suite.
 
+You can login to Webmin as root with your root password, or as any user who can use sudo to run commands as root. https://cyclone-01:10000/
+
 This is our turnkey Ubuntu based NAS build which creates a file server pre-configured with a base set of folders, system users and file permissions ready for any of our Proxmox container scripts. By default the new File Server (NAS) hostname is `cyclone-01`.
 
 Our script will create the following default setup:
@@ -47,6 +49,15 @@ Power Users are trusted persons with privileged access to data and application r
 |`homelab`|Everything to do with a smart home including medialab
 |`privatelab`|Private storage including medialab & homelab rights
 
+You can manually add a Power User at any time using our script. To execute the script SSH into typhoon-01(ssh root@192.168.1.101 or ssh root@typhoon-01) or use the Proxmox web interface CLI shell typhoon-01 > >_ Shell and cut & paste the following into the CLI terminal window and press ENTER:
+
+```
+# Enter your NAS Container ID
+pct enter 110
+# Command to run script
+bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_add_poweruser_ct_18.04.sh)"
+```
+
 #### Create Restricted and Jailed User Accounts (Standard Users)
 Every new user is restricted or jailed within their own home folder. In Linux this is called a chroot jail. But you can select the level of restrictions which are applied to each newly created user. This technique can be quite useful if you want a particular user to be provided with a limited system environment, limited folder access and at the same time keep them separate from your main server system and other personal data. The chroot technique will automatically jail selected users belonging to the `chrootjail` user group upon ssh or ftp login.
 
@@ -88,8 +99,36 @@ When creating a new user you are given the choice to select a level of `chrootja
 
 All Home folders are automatically suffixed: `username_injail`.
 
+You can manually add a Restricted and Jailed User at any time using our script. To execute the script SSH into typhoon-01(ssh root@192.168.1.101 or ssh root@typhoon-01) or use the Proxmox web interface CLI shell typhoon-01 > >_ Shell and cut & paste the following into the CLI terminal window and press ENTER:
 
+```
+# Enter your NAS Container ID
+pct enter 110
+# Command to run script
+bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_add_jailuser_ct_18.04.sh)"
+```
 
+#### Create KODI_RSYNC User
+KODI_RSYNC is a special user created for synchronising a portable or remote media player with your File Server media library. Connection is by rssh rsync. Its ideal for travellers or persons going away to a remote location with poor or no internet access. Our rsync script will securely connect to your File Server and;
+
+*  rsync mirror your selected media library to your kodi player USB disk.
+*  copy your latest media only to your kodi player USB disk.
+*  remove the oldest media to fit newer media.
+
+This is ideally suited for holiday homes, yachts or people on the move.
+
+The first step involves creating a new user called "kodi_rsync" on your File Server which has limited and restricted permissions granting rsync read access only to your media libraries.
+
+The second step, performed at a later stage, is setting up a CoreElec or LibreElec player hardware with a USB hard disk and installing our rsync scripts along with your File Server user "kodi_rsync" private ssh ed25519 key.
+
+You can manually install KODI_RSYNC at any time using our script. To execute the script SSH into typhoon-01(ssh root@192.168.1.101 or ssh root@typhoon-01) or use the Proxmox web interface CLI shell typhoon-01 > >_ Shell and cut & paste the following into the CLI terminal window and press ENTER:
+
+```
+# Enter your NAS Container ID
+pct enter 110
+# Command to run script
+bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_add_rsyncuser_ct_18.04.sh)"
+```
 
 
 The following is for creating a Proxmox Ubuntu CT File Server built on your primary Proxmox node typhoon-01.
