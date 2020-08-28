@@ -1,7 +1,7 @@
 # Proxmox Ubuntu CT File Server (NAS)
 The Ubuntu File Server is supported by a Proxmox ZFS Raid hosted on a Proxmox node (in my case I use my primary Proxmox node - `typhoon-01`). Data is served by a Proxmox Ubuntu 18.04 CT (`cyclone-01`) installed with network protocols like NFS, Samba and configured to manage all user accounts, file security and permissions and more. General administration is done using the Ubuntu Webmin webgui management suite.
 
-You can login to your NAS using Webmin with your root password, or as any user who can use sudo to run commands as root. https://cyclone-01:10000/
+You can login to your NAS using Webmin with your root password, or as any user who can use sudo to run commands as root. https://cyclone-01:10000/ or https://<INSERT IP ADDRESS>:10000/
 
 This is our turnkey Ubuntu based NAS build which creates a file server pre-configured with a base set of folders, system users and file permissions ready for any of our Proxmox container scripts. By default the new File Server (NAS) hostname is `cyclone-01`.
 
@@ -35,7 +35,7 @@ Our script will create the following default setup:
 ||/srv/CT_HOSTNAME/sshkey
 ||/srv/CT_HOSTNAME/video
 
-The above users (media,storm,typhoon) are pre-configured specifically tasked for running hosted applications (i.e Proxmox LXC,CT,VM) which have the correct UID & GUID access rights to NAS data.
+The above users (media,storm,typhoon) are pre-configured specifically tasked for running hosted applications (i.e Proxmox LXC,CT,VM) which have the correct UID & GUID access rights to NAS folders and data.
 
 ### Adding New User Accounts
 The script will give you the option to create new user accounts during the build. But you can always add users at a later stage. We have created two custom scripts for adding user accounts.
@@ -52,7 +52,7 @@ Power Users are trusted persons with privileged access to data and application r
 You can manually add a Power User at any time using our script. To execute the script SSH into typhoon-01(ssh root@192.168.1.101 or ssh root@typhoon-01) or use the Proxmox web interface CLI shell typhoon-01 > >_ Shell and cut & paste the following into the CLI terminal window and press ENTER:
 
 ```
-# Enter your NAS Container ID
+# WARNING - Enter your NAS Container ID!
 pct enter 110
 # Command to run script
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_add_poweruser_ct_18.04.sh)"
@@ -102,7 +102,7 @@ All Home folders are automatically suffixed: `username_injail`.
 You can manually add a Restricted and Jailed User at any time using our script. To execute the script SSH into typhoon-01(ssh root@192.168.1.101 or ssh root@typhoon-01) or use the Proxmox web interface CLI shell typhoon-01 > >_ Shell and cut & paste the following into the CLI terminal window and press ENTER:
 
 ```
-# Enter your NAS Container ID
+# WARNING - Enter your NAS Container ID!
 pct enter 110
 # Command to run script
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_add_jailuser_ct_18.04.sh)"
@@ -124,7 +124,7 @@ The second step, performed at a later stage, is setting up a CoreElec or LibreEl
 You can manually install KODI_RSYNC at any time using our script. To execute the script SSH into typhoon-01(ssh root@192.168.1.101 or ssh root@typhoon-01) or use the Proxmox web interface CLI shell typhoon-01 > >_ Shell and cut & paste the following into the CLI terminal window and press ENTER:
 
 ```
-# Enter your NAS Container ID
+# WARNING - Enter your NAS Container ID!
 pct enter 110
 # Command to run script
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_add_rsyncuser_ct_18.04.sh)"
@@ -231,14 +231,21 @@ You must answer a script prompt asking if your network is VLAN aware. The script
 ### 2.06 NAS Gateway IPv4 Address
 The script will attempt to find your Gateway IPv4 address. Confirm with `Enter` or type in the correct Gateway IP address.
 
-### 2.06 NAS Root Password
+### 2.07 NAS Root Password
 Have a password ready.
 
+### 2.08 USB Passthrough to CT
+There can be good reasons to access USB diskware directly from your NAS CT. To make a physically connected USB device accessible inside a Proxmox CT the Proxmox CT configuration file requires modification.
 
+During the installation the script will display all available USB devices on the host computer. But you need to identify which USB host device ID to passthrough to the NAS CT. The simplest way is to plugin a physical USB memory stick, for example a SanDisk Cruzer Blade, into your preferred USB port on the host machine. Then to physically identify the USB host device ID (the USB port) to passthrough it will be displayed in the scripts USB passthrough section as:
 
+```
+5) Bus 002 Device 004: ID 0781:5567 SanDisk Corp. Cruzer Blade
+```
 
+In this example, you will select No.5 to passthrough. Then ONLY the USB port (that physical female USB port) with the SanDisk Blade drive inserted is readable by your NAS OS.
 
-
+So have a spare USB drive ready and available.
 
 ## 3.00 Create your File Server
 We have written a Proxmox Ubuntu CT File Server (NAS) bash script to guide you through the steps in creating fully file server.
