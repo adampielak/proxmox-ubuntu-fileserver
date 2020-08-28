@@ -3,7 +3,7 @@ The Ubuntu File Server is supported by a Proxmox ZFS Raid hosted on a Proxmox no
 
 You can login to your NAS using Webmin with your root password, or as any user who can use sudo to run commands as root. https://cyclone-01:10000/ or https://<INSERT IP ADDRESS>:10000/
 
-This is our turnkey Ubuntu based NAS build which creates a file server pre-configured with a base set of folders, system users and file permissions ready for any of our Proxmox container scripts. By default the new File Server (NAS) hostname is `cyclone-01`.
+This is our turnkey Ubuntu based NAS build which creates a file server pre-configured with a base set of ZFS Raid Pool (Tank), folders, system users and file permissions ready for any of our Proxmox container scripts. By default the new File Server (NAS) hostname is `cyclone-01`.
 
 Our script will create the following default setup:
 
@@ -36,6 +36,8 @@ Our script will create the following default setup:
 ||/srv/CT_HOSTNAME/video
 
 The above users (media,storm,typhoon) are pre-configured specifically tasked for running hosted applications (i.e Proxmox LXC,CT,VM) which have the correct UID & GUID access rights to NAS folders and data.
+
+All attempts have been made to create a secure file server suitable for home or personal use.
 
 ### Adding New User Accounts
 The script will give you the option to create new user accounts during the build. But you can always add users at a later stage. We have created two custom scripts for adding user accounts.
