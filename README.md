@@ -159,7 +159,7 @@ Tasks to be performed are:
 
 
 ## 1.00 NAS Hardware and System Prerequisites
-In my network my primary Proxmox node is my most powerful server. My hardware build configuration is shown in the Proxmox node build tutorial [Build Type A - Proxmox File Server - Primary Host](https://github.com/ahuacate/proxmox-node#proxmox-node-setup).
+My primary Proxmox node is also my most powerful server. Its build hardware build is shown here [Build Type A - Proxmox File Server - Primary Host](https://github.com/ahuacate/proxmox-node#proxmox-node-setup). So my primary Proxmox node also hosts my NAS CT and physical NAS hard drives.
 
 ### 1.01 Proxmox Host installed Memory RAM
 ZFS depends heavily on memory, so you need at least 16GB to start (Recommend 32GB). In practice, use as much you can get for your hardware/budget. To prevent data corruption, we recommend the use of high quality ECC RAM (if your mainboard supports EEC).
@@ -248,4 +248,16 @@ In this example, you will select No.5 to passthrough. Then ONLY the USB port (th
 So have a spare USB drive ready and available.
 
 ## 3.00 Create your File Server
-We have written a Proxmox Ubuntu CT File Server (NAS) bash script to guide you through the steps in creating fully file server.
+Our Proxmox Ubuntu CT File Server (NAS) bash script will build you a fully functioning NAS. The guide features step by step instructions and options for you to choose from.
+
+
+To execute the script SSH into typhoon-01(ssh root@192.168.1.101 or ssh root@typhoon-01) or use the Proxmox web interface CLI shell typhoon-01 > >_ Shell and cut & paste the following into the CLI terminal window and press ENTER:
+
+```
+# WARNING - Enter your NAS Container ID!
+pct enter 110
+# Command to run script
+bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_create_ct_18.04.sh)"
+```
+Best of luck. 
+
