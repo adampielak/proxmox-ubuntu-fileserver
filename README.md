@@ -1,9 +1,11 @@
 # Proxmox Ubuntu CT File Server (NAS)
-The Ubuntu File Server is supported by a Proxmox ZFS Raid hosted on a Proxmox node (in my case I use my primary Proxmox node - `typhoon-01`). Data is served by a Proxmox Ubuntu 18.04 CT (`cyclone-01`) installed with network protocols like NFS, Samba and configured to manage all user accounts, file security and permissions and more. General administration is done using the Ubuntu Webmin webgui management suite.
+Here we created a Proxmox containerised (CT) Ubuntu File Server commonly known as a NAS.
+
+The Ubuntu File Server is supported by a Proxmox ZFS Raid configuration hosted on a Proxmox node (in my case I use my primary Proxmox node - `typhoon-01`). Data is served by a Proxmox Ubuntu 18.04 CT (`cyclone-01`) installed with network protocols like NFS, Samba and configured to manage all user accounts, file security and permissions and more. General NAS administration is done using the Ubuntu Webmin webgui management suite.
 
 You can login to your NAS using Webmin with your root password, or as any user who can use sudo to run commands as root. https://cyclone-01:10000/ or https://<INSERT IP ADDRESS>:10000/
 
-This is our turnkey Ubuntu based NAS build which creates a file server pre-configured with a base set of ZFS Raid Pool (Tank), folders, system users and file permissions ready for any of our Proxmox container scripts. By default the new File Server (NAS) hostname is `cyclone-01`.
+This is a turnkey Ubuntu based NAS build which creates a file server pre-configured with a base set of ZFS Raid Pool (Tank), folders, system users and file permissions ready for any of our Proxmox container scripts. By default the new File Server (NAS) hostname is `cyclone-01`.
 
 Our script will create the following default setup:
 
@@ -43,7 +45,7 @@ All attempts have been made to create a secure file server suitable for home or 
 The script will give you the option to create new user accounts during the build. But you can always add users at a later stage. We have created two custom scripts for adding user accounts.
 
 #### Create New "Power User" Accounts
-Power Users are trusted persons with privileged access to data and application resources hosted on your File Server. Power Users are NOT standard users! Standard users are added with another script. Each new Power Users security permissions are controlled by linux groups. Group security permission levels are as follows:
+Power Users are trusted persons with privileged access to data and application resources hosted on your File Server. Power Users are NOT standard users! Standard users are added with another chrootjail script. Each new Power Users security permissions are controlled by linux groups. Group security permission levels are as follows:
 
 | GROUP NAME | PERMISSIONS
 | :---  | :---
@@ -54,8 +56,8 @@ Power Users are trusted persons with privileged access to data and application r
 You can manually add a Power User at any time using our script. To execute the script SSH into typhoon-01(ssh root@192.168.1.101 or ssh root@typhoon-01) or use the Proxmox web interface CLI shell typhoon-01 > >_ Shell and cut & paste the following into the CLI terminal window and press ENTER:
 
 ```
-# WARNING - Enter your NAS Container ID!
-pct enter 110
+# WARNING - Enter your NAS Container CTID (i.e my CTID is 110)!
+pct enter CTID
 # Command to run script
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_add_poweruser_ct_18.04.sh)"
 ```
@@ -104,8 +106,8 @@ All Home folders are automatically suffixed: `username_injail`.
 You can manually add a Restricted and Jailed User at any time using our script. To execute the script SSH into typhoon-01(ssh root@192.168.1.101 or ssh root@typhoon-01) or use the Proxmox web interface CLI shell typhoon-01 > >_ Shell and cut & paste the following into the CLI terminal window and press ENTER:
 
 ```
-# WARNING - Enter your NAS Container ID!
-pct enter 110
+# WARNING - Enter your NAS Container CTID (i.e my CTID is 110)!
+pct enter CTID
 # Command to run script
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_add_jailuser_ct_18.04.sh)"
 ```
@@ -126,8 +128,8 @@ The second step, performed at a later stage, is setting up a CoreElec or LibreEl
 You can manually install KODI_RSYNC at any time using our script. To execute the script SSH into typhoon-01(ssh root@192.168.1.101 or ssh root@typhoon-01) or use the Proxmox web interface CLI shell typhoon-01 > >_ Shell and cut & paste the following into the CLI terminal window and press ENTER:
 
 ```
-# WARNING - Enter your NAS Container ID!
-pct enter 110
+# WARNING - Enter your NAS Container CTID (i.e my CTID is 110)!
+pct enter CTID
 # Command to run script
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_add_rsyncuser_ct_18.04.sh)"
 ```
@@ -256,10 +258,31 @@ Our Proxmox Ubuntu CT File Server (NAS) bash script will build you a fully funct
 To execute the script SSH into typhoon-01(ssh root@192.168.1.101 or ssh root@typhoon-01) or use the Proxmox web interface CLI shell typhoon-01 > >_ Shell and cut & paste the following into the CLI terminal window and press ENTER:
 
 ```
-# WARNING - Enter your NAS Container ID!
-pct enter 110
+# WARNING - Enter your NAS Container CTID (i.e my CTID is 110)!
+pct enter CTID
 # Command to run script
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_create_ct_18.04.sh)"
 ```
 Best of luck. 
 
+## 4.00 Manual Configuration - Create New "Power User" Accounts
+Read about "Power User" [HERE]()
+
+You can manually add a Power User at any time using our script. To execute the script SSH into typhoon-01(ssh root@192.168.1.101 or ssh root@typhoon-01) or use the Proxmox web interface CLI shell typhoon-01 > >_ Shell and cut & paste the following into the CLI terminal window and press ENTER:
+
+```
+# WARNING - Enter your NAS Container CTID (i.e my CTID is 110)!
+pct enter CTID
+# Command to run script
+bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_add_poweruser_ct_18.04.sh)"
+```
+
+## 5.00 Manual Configuration - Create Restricted and Jailed User Accounts (Standard Users)
+You can manually add a Restricted and Jailed User at any time using our script. To execute the script SSH into typhoon-01(ssh root@192.168.1.101 or ssh root@typhoon-01) or use the Proxmox web interface CLI shell typhoon-01 > >_ Shell and cut & paste the following into the CLI terminal window and press ENTER:
+
+```
+# WARNING - Enter your NAS Container CTID (i.e my CTID is 110)!
+pct enter CTID
+# Command to run script
+bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_add_jailuser_ct_18.04.sh)"
+```
