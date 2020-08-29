@@ -99,7 +99,7 @@ pushd $TEMP_DIR >/dev/null
 
 
 # Download external scripts
-wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-node/master/scripts/fileserver_setup_ct_18.04.sh
+wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_setup_ct_18.04.sh
 #chmod +x fileserver_setup_ct_18.04.sh
 
 #########################################################################################
@@ -109,7 +109,7 @@ wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-node/master/scripts/
 #########################################################################################
 
 # Command to run script
-# bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-node/master/scripts/fileserver_create_ct_18.04.sh)"
+# bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_create_ct_18.04.sh)"
 
 
 
