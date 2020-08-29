@@ -3,7 +3,7 @@ Here we created a Proxmox containerised (CT) Ubuntu File Server commonly known a
 
 The Ubuntu File Server is supported by a Proxmox ZFS Raid configuration hosted on a Proxmox node (in my case I use my primary Proxmox node - `typhoon-01`). Data is served by a Proxmox Ubuntu 18.04 CT (`cyclone-01`) installed with network protocols like NFS, Samba and configured to manage all user accounts, file security and permissions and more. General NAS administration is done using the Ubuntu Webmin webgui management suite.
 
-You can login to your NAS using Webmin with your root password, or as any user who can use sudo to run commands as root. https://cyclone-01:10000/ or https://<INSERT IP ADDRESS>:10000/
+You can login to your NAS using Webmin with your root password, or as any user who can use sudo to run commands as root. https://cyclone-01:10000/ or https://>INSERT IP ADDRESS<:10000/
 
 This is a turnkey Ubuntu based NAS build which creates a file server pre-configured with a base set of ZFS Raid Pool (Tank), folders, system users and file permissions ready for any of our Proxmox container scripts. By default the new File Server (NAS) hostname is `cyclone-01`.
 
