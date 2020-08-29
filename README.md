@@ -266,7 +266,7 @@ bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu
 Best of luck. 
 
 ## 4.00 Manual Configuration - Create New "Power User" Accounts
-Read about "Power User" [HERE]()
+Read about "Power User" [HERE](https://github.com/ahuacate/proxmox-ubuntu-fileserver/blob/master/README.md#create-new-power-user-accounts)
 
 You can manually add a Power User at any time using our script. To execute the script SSH into typhoon-01(ssh root@192.168.1.101 or ssh root@typhoon-01) or use the Proxmox web interface CLI shell typhoon-01 > >_ Shell and cut & paste the following into the CLI terminal window and press ENTER:
 
