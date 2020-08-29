@@ -80,7 +80,7 @@ fi
 
 
 # Command to run script
-# bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-node/master/scripts/fileserver_install_ssmtp_ct_18.04.sh)"
+# bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_install_ssmtp_ct_18.04.sh)"
 
 
 # Setting Variables
