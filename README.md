@@ -166,9 +166,24 @@ Optional Prerequisites are:
 
 
 Tasks to be performed are:
-- [About LXC Homelab Installations](#about-lxc-homelab-installations)
 
-
+- [1.00 NAS Hardware and System Prerequisites](#100-nas-hardware-and-system-prerequisites)
+	- [1.01 Proxmox Host installed Memory RAM](#101-proxmox-host-installed-memory-ram)
+	- [1.02 Proxmox Host SSD Cache](#102-proxmox-host-ssd-cache)
+	- [1.03 Installation of Storage Disks](#103-installation-of-storage-disks)
+- [2.00 Required Credentials for creating your NAS](#200-required-credentials-for-creating-your-nas)
+	- [2.01 Your System’s designated Administrator Email](#201-your-systems-designated-administrator-email)
+	- [2.02 SMTP Server Credentials](#202-smtp-server-credentials)
+	- [2.03 NAS Hostname](#203-nas-hostname)
+	- [2.04 NAS IPv4 Address](#204-nas-ipv4-address)
+	- [2.05 Network VLAN Aware](#205-network-vlan-aware)
+	- [2.06 NAS Gateway IPv4 Address](#206-nas-gateway-ipv4-address)
+	- [2.07 NAS Root Password](#207-nas-root-password)
+	- [2.08 USB Passthrough to CT](#208-usb-passthrough-to-ct)
+- [3.00 Create your File Server](#300-create-your-file-server)
+- [4.00 Manual Configuration - Create New "Power User" Accounts](#400-manual-configuration---create-new-power-user-accounts)
+- [5.00 Manual Configuration - Create Restricted and Jailed User Accounts (Standard Users)](#500-manual-configuration---create-restricted-and-jailed-user-accounts-standard-users)
+- [00.00 Patches and Fixes](#0000-patches-and-fixes)
 
 
 ## 1.00 NAS Hardware and System Prerequisites
@@ -297,3 +312,6 @@ pct enter CTID
 # Command to run script
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_add_jailuser_ct_18.04.sh)"
 ```
+
+00.00 Patches and Fixes
+
