@@ -53,7 +53,7 @@ NC=$'\033[0m'
 # Download external scripts
 
 # Command to run script
-# bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-node/master/scripts/fileserver_add_poweruser_ct_18.04.sh)"
+# bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_add_poweruser_ct_18.04.sh)"
 
 
 #### Create New Power User Accounts ####
