@@ -64,15 +64,15 @@ fi
 
 # Download external scripts
 if [ ! -f $TEMP_DIR/fileserver_base_folder_setup ];then
-  wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-node/master/scripts/fileserver_base_folder_setup
+  wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_base_folder_setup
 fi
 if [ ! -f $TEMP_DIR/fileserver_base_subfolder_setup ];then
-  wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-node/master/scripts/fileserver_base_subfolder_setup
+  wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_base_subfolder_setup
 fi
 
 
 # Command to run script
-# bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-node/master/scripts/fileserver_add_rsyncuser_ct_18.04.sh)"
+# bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_add_rsyncuser_ct_18.04.sh)"
 
 
 # Setting Variables
