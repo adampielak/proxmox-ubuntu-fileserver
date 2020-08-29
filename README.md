@@ -5,7 +5,7 @@ The Ubuntu File Server is supported by a Proxmox ZFS Raid configuration hosted o
 
 You can login to your NAS using Webmin with your root password, or as any user who can use sudo to run commands as root. https://cyclone-01:10000/ or https://>INSERT IP ADDRESS<:10000/
 
-This is a turnkey Ubuntu based NAS build which creates a file server pre-configured with a base set of ZFS Raid Pool (Tank), folders, system users and file permissions ready for any of our Proxmox container scripts. By default the new File Server (NAS) hostname is `cyclone-01`.
+This is a turnkey Ubuntu based NAS build which creates a file server pre-configured with a Proxmox ZFS Raid Pool (Tank) and a base set storage folders, system users and file permissions suitable for our Proxmox container build scripts (i.e Sonarr, Radarr, Home Assistant). By default the new File Server (NAS) hostname is `cyclone-01`.
 
 Our script will create the following default setup:
 
