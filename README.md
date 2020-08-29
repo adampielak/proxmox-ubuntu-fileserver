@@ -65,9 +65,18 @@ bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu
 #### Create Restricted and Jailed User Accounts (Standard Users)
 Every new user is restricted or jailed within their own home folder. In Linux this is called a chroot jail. But you can select the level of restrictions which are applied to each newly created user. This technique can be quite useful if you want a particular user to be provided with a limited system environment, limited folder access and at the same time keep them separate from your main server system and other personal data. The chroot technique will automatically jail selected users belonging to the `chrootjail` user group upon ssh or ftp login.
 
-An example of a jailed user is a person who has remote access to your File Server but is restricted to your video library (TV, movies, documentary), public folders and their home folder for cloud storage only. Remote access to your File Server is restricted to sftp, ssh and rsync using private SSH RSA encrypted keys. 
+An example of a jailed user is a person who has remote access to your File Server but is restricted to your video library (TV, movies, documentary), public folders and their home folder for cloud storage only. Remote access to your File Server is restricted to sftp, ssh and rsync using private SSH RSA encrypted keys. The user can backup their mobile, tablet, notebook or any device.
 
-When creating a new user you are given the choice to select a level of `chrootjail` group permissions per user. The options are options are:
+When creating a new user you are given the choice to select a Level of `chrootjail` group permissions and access rights per user. We have pre-configured 3 Levels to choose from with varying degree of file access for different types of users. 
+
+**Level 1**  -  This user is restricted to their private home folder for data storage and the NAS public folder only. This is ideal for persons whom you DO NOT want to share any media data with. Typical users maybe: persons wanting Cloud storage and nothing more.
+
+**Level 2**  -  This user is restricted to their private home folder for data storage, limited access to the NAS public folder and media library (i.e Restricted to movies, tv, documentary, homevideo folders only). The user is also setup with a downloads folder and special folders within their chrootjail home folder for sharing photos and homevideos with other users or a media server like Emby or Jellyfin. Typical users maybe: family, close friends and children because of limited media access.
+
+**Level 3**  -  This user is restricted to their private home folder for data storage, limited access to the NAS public, audio, books folders and media library (i.e This user level is NOT restricted so they can view ALL media content). The user is also setup with a downloads folder and special folders within their chrootjail home folder for sharing photos and homevideos with other users or a media server like Emby or Jellyfin. Typical users maybe: Power users and adults with full media library access.
+
+
+The options are options are:
 
 | GROUP NAME | USER NAME
 | :---  | :---
@@ -266,7 +275,7 @@ bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu
 Best of luck. 
 
 ## 4.00 Manual Configuration - Create New "Power User" Accounts
-Read about "Power User" [HERE](https://github.com/ahuacate/proxmox-ubuntu-fileserver/blob/master/README.md#create-new-power-user-accounts)
+Read about "Power User" [HERE](https://github.com/ahuacate/proxmox-ubuntu-fileserver/blob/master/README.md#create-new-power-user-accounts).
 
 You can manually add a Power User at any time using our script. To execute the script SSH into typhoon-01(ssh root@192.168.1.101 or ssh root@typhoon-01) or use the Proxmox web interface CLI shell typhoon-01 > >_ Shell and cut & paste the following into the CLI terminal window and press ENTER:
 
@@ -278,6 +287,7 @@ bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu
 ```
 
 ## 5.00 Manual Configuration - Create Restricted and Jailed User Accounts (Standard Users)
+Read about "Restricted and Jailed User Accounts" (Standard Users) [HERE](https://github.com/ahuacate/proxmox-ubuntu-fileserver/blob/master/README.md#create-restricted-and-jailed-user-accounts-standard-users).
 You can manually add a Restricted and Jailed User at any time using our script. To execute the script SSH into typhoon-01(ssh root@192.168.1.101 or ssh root@typhoon-01) or use the Proxmox web interface CLI shell typhoon-01 > >_ Shell and cut & paste the following into the CLI terminal window and press ENTER:
 
 ```
