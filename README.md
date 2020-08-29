@@ -288,6 +288,7 @@ bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu
 
 ## 5.00 Manual Configuration - Create Restricted and Jailed User Accounts (Standard Users)
 Read about "Restricted and Jailed User Accounts" (Standard Users) [HERE](https://github.com/ahuacate/proxmox-ubuntu-fileserver/blob/master/README.md#create-restricted-and-jailed-user-accounts-standard-users).
+
 You can manually add a Restricted and Jailed User at any time using our script. To execute the script SSH into typhoon-01(ssh root@192.168.1.101 or ssh root@typhoon-01) or use the Proxmox web interface CLI shell typhoon-01 > >_ Shell and cut & paste the following into the CLI terminal window and press ENTER:
 
 ```
