@@ -276,8 +276,7 @@ In this example, you will select No.5 to passthrough. Then ONLY the USB port (th
 So have a spare USB drive ready and available.
 
 ## 3.00 Create your File Server
-Our Proxmox Ubuntu CT File Server (NAS) bash script will build you a fully functioning NAS. The guide features step by step instructions and options for you to choose from.
-
+Our Proxmox Ubuntu CT File Server (NAS) bash script will build you a fully functioning NAS. The script includes step by step instructions and options for you to choose from.
 
 To execute the script SSH into typhoon-01(ssh root@192.168.1.101 or ssh root@typhoon-01) or use the Proxmox web interface CLI shell typhoon-01 > >_ Shell and cut & paste the following into the CLI terminal window and press ENTER:
 
