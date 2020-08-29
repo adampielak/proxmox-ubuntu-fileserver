@@ -55,15 +55,15 @@ TEMP_DIR=$(mktemp -d)
 pushd $TEMP_DIR >/dev/null
 
 # Command to run script
-# bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-node/master/scripts/fileserver_setup_ct_18.04.sh)"
+# bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_setup_ct_18.04.sh)"
 
 # Download external scripts
-wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-node/master/scripts/fileserver_add_jailuser_ct_18.04.sh
-wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-node/master/scripts/fileserver_add_poweruser_ct_18.04.sh
-wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-node/master/scripts/fileserver_add_rsyncuser_ct_18.04.sh
-wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-node/master/scripts/fileserver_base_folder_setup
-wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-node/master/scripts/fileserver_base_subfolder_setup
-wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-node/master/scripts/fileserver_chroot_programs_ct_18.04
+wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_add_jailuser_ct_18.04.sh
+wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_add_poweruser_ct_18.04.sh
+wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_add_rsyncuser_ct_18.04.sh
+wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_base_folder_setup
+wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_base_subfolder_setup
+wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_chroot_programs_ct_18.04
 
 # Move tmp files to TEMP
 if [ -f /tmp/fileserver_setup_ct_variables.sh ]; then
