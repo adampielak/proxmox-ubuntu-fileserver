@@ -1,5 +1,5 @@
 # Proxmox Ubuntu CT File Server (NAS)
-Here we created a Proxmox containerised (CT) Ubuntu File Server commonly known as a NAS.
+Here we create a Proxmox containerised (CT) Ubuntu File Server commonly known as a NAS.
 
 The Ubuntu File Server is supported by a Proxmox ZFS Raid configuration hosted on a Proxmox node (in my case I use my primary Proxmox node - `typhoon-01`). Data is served by a Proxmox Ubuntu 18.04 CT (`cyclone-01`) installed with network protocols like NFS, Samba and configured to manage all user accounts, file security and permissions and more. General NAS administration is done using the Ubuntu Webmin webgui management suite.
 
@@ -187,7 +187,7 @@ Tasks to be performed are:
 
 
 ## 1.00 NAS Hardware and System Prerequisites
-My primary Proxmox node is also my most powerful server. Its build hardware build is shown here [Build Type A - Proxmox File Server - Primary Host](https://github.com/ahuacate/proxmox-node#proxmox-node-setup). So my primary Proxmox node also hosts my NAS CT and physical NAS hard drives.
+My primary Proxmox node is my most powerful machine. Hardware specification is shown here [Build Type A - Proxmox File Server - Primary Host](https://github.com/ahuacate/proxmox-node#proxmox-node-setup). The machine hosts my NAS and physical NAS storage hard drives.
 
 ### 1.01 Proxmox Host installed Memory RAM
 ZFS depends heavily on memory, so you need at least 16GB to start (Recommend 32GB). In practice, use as much you can get for your hardware/budget. To prevent data corruption, we recommend the use of high quality ECC RAM (if your mainboard supports EEC).
