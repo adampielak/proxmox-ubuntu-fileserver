@@ -282,8 +282,6 @@ Our Proxmox Ubuntu CT File Server (NAS) bash script will build you a fully funct
 To execute the script SSH into typhoon-01(ssh root@192.168.1.101 or ssh root@typhoon-01) or use the Proxmox web interface CLI shell typhoon-01 > >_ Shell and cut & paste the following into the CLI terminal window and press ENTER:
 
 ```
-# WARNING - Enter your NAS Container CTID (i.e my CTID is 110)!
-pct enter CTID
 # Command to run script
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_create_ct_18.04.sh)"
 ```
