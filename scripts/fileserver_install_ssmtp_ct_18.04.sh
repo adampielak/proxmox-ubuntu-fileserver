@@ -111,14 +111,14 @@ echo
 section "File Server CT - Checking Prerequisites."
 
 msg "Checking ssmtp status..."
-if [ dpkg -s ssmtp >/dev/null 2>&1; echo $? ]; then
+if [ $(dpkg -s ssmtp >/dev/null 2>&1; echo $?) = 0 ]; then
   info "ssmtp status: ${GREEN}active (running).${NC}"
 else
   msg "Installing ssmtp..."
   sudo apt-get install ssmtp >/dev/null
   sudo apt-get install sharutils >/dev/null
   sleep 1
-  if [ dpkg -s ssmtp >/dev/null 2>&1; echo $? ]; then
+  if [ $(dpkg -s ssmtp >/dev/null 2>&1; echo $?) = 0 ]; then
     info "ssmtp status: ${GREEN}active (running).${NC}"
   else
     warn "ssmtp status: ${RED}inactive or cannot install (dead).${NC}.\nYour intervention is required.\nExiting installation script in 3 second."
