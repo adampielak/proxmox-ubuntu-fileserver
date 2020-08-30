@@ -286,7 +286,9 @@ pct enter CTID
 # Command to run script
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_create_ct_18.04.sh)"
 ```
-Best of luck. 
+
+Best of luck.
+
 
 ## 4.00 Manual Configuration - Create New "Power User" Accounts
 Read about "Power User" [HERE](https://github.com/ahuacate/proxmox-ubuntu-fileserver/blob/master/README.md#create-new-power-user-accounts).
