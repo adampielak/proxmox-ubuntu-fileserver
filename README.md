@@ -165,6 +165,7 @@ Optional Prerequisites are:
 - [x] pfSense is fully configured including steps [PFSENSE-SETUP](https://github.com/ahuacate/pfsense-setup) and [PFSENSE-HAPROXY](https://github.com/ahuacate/pfsense-haproxy). All remote access will be via PfSense HAProxy.
 
 
+
 Tasks to be performed are:
 - [1.00 NAS Hardware and System Prerequisites](#100-nas-hardware-and-system-prerequisites)
 	- [1.01 Proxmox Host installed Memory RAM](#101-proxmox-host-installed-memory-ram)
