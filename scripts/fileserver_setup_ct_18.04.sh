@@ -83,6 +83,7 @@ fi
 # Download and Install Prerequisites
 apt-get install -y samba-common-bin >/dev/null
 apt-get install -y acl >/dev/null
+apt-get install -y putty-tools >/dev/null
 
 
 #### Creating File Server Users and Groups ####
@@ -710,6 +711,51 @@ elif [ $SSHD_STATUS = 1 ]; then
 fi
 
 
+#### Install and Configure Webmin ####
+section "File Server CT - Installing and configuring Webmin."
+
+
+# Install Webmin Prerequisites
+msg "Installing Webmin prerequisites..."
+apt-get install -y gnupg2 >/dev/null
+bash -c 'echo "deb http://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list' >/dev/null
+wget -qL http://www.webmin.com/jcameron-key.asc
+apt-key add jcameron-key.asc
+apt-get update >/dev/null
+
+# Install Webmin
+msg "Installing Webmin..."
+apt-get install -y webmin >/dev/null
+if [ "$(systemctl is-active --quiet webmin; echo $?) -eq 0" ]; then
+	info "Webmin Server status: ${GREEN}active (running).${NC}"
+	echo
+elif [ "$(systemctl is-active --quiet webmin; echo $?) -eq 3" ]; then
+	info "Webmin Server status: ${RED}inactive (dead).${NC}. Your intervention is required."
+	echo
+fi
+
+
+#### Install and Configure SSMTP Email Alerts ####
+section "File Server CT - Installing and configuring Email Alerts."
+
+echo
+box_out '#### PLEASE READ CAREFULLY - SSMTP & EMAIL ALERTS ####' '' 'Send email alerts about your machine to the system’s designated administrator.' 'Be alerted about unwarranted login attempts and other system critical alerts.' 'If you do not have a postfix or sendmail server on your network then' 'the "simple smtp" (ssmtp) package is well suited for sending critical' 'alerts to the systems designated administrator.' '' 'ssmtp is a simple Mail Transfer Agent (MTA) while easy to setup it' 'requires the following prerequisites:' '' '  --  SMTP SERVER' '      You require a SMTP server that can receive the emails from your machine' '      and send them to the designated administrator. ' '      If you use Gmail smtp server its best to enable "App Passwords". An "App' '      Password" is a 16-digit passcode that gives an app or device permission' '      to access your Google Account.' '      Or you can use a mailgun.com flex account relay server (Recommended).' '' '  --  REQUIRED SMTP SERVER CREDENTIALS' '      1. Designated administrator email address' '         (i.e your working admin email address)' '      2. smtp server address' '         (i.e smtp.gmail.com or smtp.mailgun.org)' '      3. smtp server port' '         (i.e gmail port is 587 and mailgun port is 587)' '      4. smtp server username' '         (i.e MyEmailAddress@gmail.com or postmaster@sandboxa6ac6.mailgun.org)' '      5. smtp server default password' '         (i.e your Gmail App Password or mailgun smtp password)' '' 'If you choose to proceed have your smtp server credentials available.' 'This script will install and configure a ssmtp package as well as the default' 'Webmin Sending Email on your File Server (NAS).'
+echo
+read -p "Install and configure ssmtp on your File Server (NAS) [y/n]?: " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  msg "Installing ssmtp..."
+  export INSTALL_SSMTP=0 >/dev/null
+  export PARENT_EXEC_INSTALL_SSMTP=0 >/dev/null
+  chmod +x fileserver_install_ssmtp_ct_18.04.sh
+  ./fileserver_install_ssmtp_ct_18.04.sh
+else
+  INSTALL_SSMTP=1 >/dev/null
+  info "You have chosen to skip this step."
+fi
+echo
+
+
 #### Create New Power User Accounts ####
 section "File Server CT - Create New Power User Accounts"
 
@@ -729,7 +775,6 @@ else
 	info "You have chosen to skip this step."
 fi
 echo
-
 
 
 #### Create Restricted and Jailed User Accounts ####
@@ -772,26 +817,4 @@ fi
 echo
 
 
-#### Install and Configure Webmin ####
-section "File Server CT - Installing and configuring Webmin."
-
-
-# Install Webmin Prerequisites
-msg "Installing Webmin prerequisites..."
-apt-get install -y gnupg2 >/dev/null
-bash -c 'echo "deb http://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list' >/dev/null
-wget -qL http://www.webmin.com/jcameron-key.asc
-apt-key add jcameron-key.asc
-apt-get update >/dev/null
-
-# Install Webmin
-msg "Installing Webmin..."
-apt-get install -y webmin >/dev/null
-if [ "$(systemctl is-active --quiet webmin; echo $?) -eq 0" ]; then
-	info "Webmin Server status: ${GREEN}active (running).${NC}"
-	echo
-elif [ "$(systemctl is-active --quiet webmin; echo $?) -eq 3" ]; then
-	info "Webmin Server status: ${RED}inactive (dead).${NC}. Your intervention is required."
-	echo
-fi
 sleep 5
