@@ -184,6 +184,7 @@ Tasks to be performed are:
 - [4.00 Manual Configuration - Create New "Power User" Accounts](#400-manual-configuration---create-new-power-user-accounts)
 - [5.00 Manual Configuration - Create Restricted and Jailed User Accounts (Standard Users)](#500-manual-configuration---create-restricted-and-jailed-user-accounts-standard-users)
 - [00.00 Patches and Fixes](#0000-patches-and-fixes)
+	- [00.01 Remove old ZFS Pools](#0001-remove-old-zfs-pools)
 
 
 ## 1.00 NAS Hardware and System Prerequisites
@@ -314,5 +315,18 @@ pct enter CTID
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_add_jailuser_ct_18.04.sh)"
 ```
 
-00.00 Patches and Fixes
+---
+
+## 00.00 Patches and Fixes
+
+### 00.01 Remove old ZFS Pools
+If for whatever reason you remove or destroy a ZFS Pool (i.e default storage zpool `tank`) use a SSH shell in NAS (i.e Ubuntu bash shell) and type the following:
+```
+# WARNING - Enter your NAS Container CTID (i.e my CTID is 110)!
+pct enter CTID
+# Command to run script
+zpool destroy tank
+```
+
+
 
