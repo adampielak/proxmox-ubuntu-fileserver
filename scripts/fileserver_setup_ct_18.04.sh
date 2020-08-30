@@ -64,6 +64,7 @@ wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/ma
 wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_base_folder_setup
 wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_base_subfolder_setup
 wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_chroot_programs_ct_18.04
+wget -qL https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_install_ssmtp_ct_18.04.sh
 
 # Move tmp files to TEMP
 if [ -f /tmp/fileserver_setup_ct_variables.sh ]; then
