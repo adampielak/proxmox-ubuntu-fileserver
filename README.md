@@ -166,7 +166,6 @@ Optional Prerequisites are:
 
 
 Tasks to be performed are:
-
 - [1.00 NAS Hardware and System Prerequisites](#100-nas-hardware-and-system-prerequisites)
 	- [1.01 Proxmox Host installed Memory RAM](#101-proxmox-host-installed-memory-ram)
 	- [1.02 Proxmox Host SSD Cache](#102-proxmox-host-ssd-cache)
