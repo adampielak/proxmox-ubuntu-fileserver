@@ -80,7 +80,7 @@ fi
 
 
 # Command to run script
-# bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-ubuntu-fileserver/master/scripts/fileserver_install_ssmtp_ct_18.04.sh)"
+# bash -c "$(wget -qLO - https://raw.githubusercontent.com/ahuacate/proxmox-node/master/scripts/fileserver_install_ssmtp_ct_18.04.sh)"
 
 
 # Setting Variables
@@ -91,7 +91,7 @@ fi
 if [ -z "${INSTALL_SSMTP+x}" ] && [ -z "${PARENT_EXEC_INSTALL_SSMTP+x}" ]; then
   section "File Server CT - Installing and configuring Email Alerts."
   echo
-box_out '#### PLEASE READ CAREFULLY - SSMTP & EMAIL ALERTS ####' '' 'Send email alerts about your machine to the system’s designated administrator.' 'Be alerted about unwarranted login attempts and other system critical alerts.' 'If you do not have a postfix or sendmail server on your network then' 'the "simple smtp" (ssmtp) package is well suited for sending critical' 'alerts to the systems designated administrator.' '' 'ssmtp is a simple Mail Transfer Agent (MTA) while easy to setup it' 'requires the following prerequisites:' '' '  --  SMTP SERVER' '      You require a SMTP server that can receive the emails from your machine' '      and send them to the designated administrator. ' '      If you use Gmail smtp server its best to enable "App Passwords". An "App' '      Password" is a 16-digit passcode that gives an app or device permission' '      to access your Google Account.' '      Or you can use a mailgun.com flex account relay server (Recommended).' '' '  --  REQUIRED SMTP SERVER CREDENTIALS' '      1. Designated administrator email address' '         (i.e your working admin email address)' '      2. smtp server address' '         (i.e smtp.gmail.com or smtp.mailgun.org)' '      3. smtp server port' '         (i.e gmail port is 587 and mailgun port is 587)' '      4. smtp server username' '         (i.e MyEmailAddress@gmail.com or postmaster@sandboxa6ac6.mailgun.org)' '      5. smtp server default password' '         (i.e your Gmail App Password or mailgun smtp password)' '' 'So have your smtp server credentials ready to install and configure the ssmtp' 'package on your File Server (NAS).'
+  box_out '#### PLEASE READ CAREFULLY - SSMTP & EMAIL ALERTS ####' '' 'Send email alerts about your machine to the system’s designated administrator.' 'Be alerted about unwarranted login attempts and other system critical alerts.' 'If you do not have a postfix or sendmail server on your network then' 'the "simple smtp" (ssmtp) package is well suited for sending critical' 'alerts to the systems designated administrator.' '' 'ssmtp is a simple Mail Transfer Agent (MTA) while easy to setup it' 'requires the following prerequisites:' '' '  --  SMTP SERVER' '      You require a SMTP server that can receive the emails from your machine' '      and send them to the designated administrator. ' '      If you use Gmail smtp server its best to enable "App Passwords". An "App' '      Password" is a 16-digit passcode that gives an app or device permission' '      to access your Google Account.' '      Or you can use a mailgun.com flex account relay server (Recommended).' '' '  --  REQUIRED SMTP SERVER CREDENTIALS' '      1. Designated administrator email address' '         (i.e your working admin email address)' '      2. smtp server address' '         (i.e smtp.gmail.com or smtp.mailgun.org)' '      3. smtp server port' '         (i.e gmail port is 587 and mailgun port is 587)' '      4. smtp server username' '         (i.e MyEmailAddress@gmail.com or postmaster@sandboxa6ac6.mailgun.org)' '      5. smtp server default password' '         (i.e your Gmail App Password or mailgun smtp password)' '' 'If you choose to proceed have your smtp server credentials available.' 'This script will install and configure a ssmtp package as well as the default' 'Webmin Sending Email on your File Server (NAS).'
   echo
   read -p "Install and configure ssmtp on your File Server (NAS) [y/n]?: " -n 1 -r
   echo
@@ -116,6 +116,7 @@ if [ dpkg -s ssmtp >/dev/null 2>&1; echo $? ]; then
 else
   msg "Installing ssmtp..."
   sudo apt-get install ssmtp >/dev/null
+  sudo apt-get install sharutils >/dev/null
   sleep 1
   if [ dpkg -s ssmtp >/dev/null 2>&1; echo $? ]; then
     info "ssmtp status: ${GREEN}active (running).${NC}"
@@ -190,7 +191,7 @@ if [[ ${SSMTP_ADDRESS,,} == *"gmail"* ]]; then
   msg "Required actions when using gmail smtp servers:\n  --  Open your Google Account.\n  --  In the Security section, select 2-Step Verification.\n      You might need to sign in.\n      Select Turn off.\n  --  A pop-up window will appear to confirm that you want to turn\n      off 2-Step Verification. Select Turn off.\n  --  Allow Less secure app access. If you do not use 2-Step Verification,\n      you might need to allow less secure apps to access your account."
   echo
 elif [[ ${SSMTP_ADDRESS,,} == *"mailgun"* ]]; then
-msg "Required actions when using mailgun smtp servers:\n  --  Do NOT use your mailgun account username and passwords.\n  --  Go to Mailgun.com website and login.\n  --  In the Sending section, select Overview tab.\n  --  Select SMTP > Select to grab your SMTP credentials.\n  --  Note and copy your Username. Usually a long username like:\n      ( i.e Username: postmaster@sandbox3bchjsdf7fsfcsfac6.mailgun.org )\n  --  Note and copy your Password. Usually a long password like:\n      ( i.e Default password: 89kf548sbsfjsdfb8b503551030-f9kl3b107-7099346 ).\n  --  You must add your $SSMTP_EMAIL to mailgun Authorized Recipients list.\n      This input is on the same page as smtp username and password\n      Sending > Overview. Add $SSMTP_EMAIL and click Save."
+  msg "Required actions when using mailgun smtp servers:\n  --  Do NOT use your mailgun account username and passwords.\n  --  Go to Mailgun.com website and login.\n  --  In the Sending section, select Overview tab.\n  --  Select SMTP > Select to grab your SMTP credentials.\n  --  Note and copy your Username. Usually a long username like:\n      ( i.e Username: postmaster@sandbox3bchjsdf7fsfcsfac6.mailgun.org )\n  --  Note and copy your Password. Usually a long password like:\n      ( i.e Default password: 89kf548sbsfjsdfb8b503551030-f9kl3b107-7099346 ).\n  --  You must add your $SSMTP_EMAIL to mailgun Authorized Recipients list.\n      This input is on the same page as smtp username and password\n      Sending > Overview. Add $SSMTP_EMAIL and click Save."
   echo
 fi
 
@@ -313,7 +314,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   echo -e "To: $SSMTP_EMAIL\nFrom: $SSMTP_EMAIL\nSubject: This is a ssmtp test email sent from $HOSTNAME\n\nHello World.\n\nYour ssmtp mail server works.\nCongratulations.\n\n" > test_email.txt
   sudo ssmtp -vvv $SSMTP_EMAIL < test_email.txt
   echo
-  msg "Check the administrators mailbox ( $SSMTP_EMAIL ) to ensure the test email\nwas delivered.\Note, check the administrators spam folder and whitelist any\ntest email found there."
+  msg "Check the administrators mailbox ( $SSMTP_EMAIL ) to ensure the test email\nwas delivered.\nNote: check the administrators spam folder and whitelist any\ntest email found there."
   echo
   read -p "Confirm receipt of the test email message [y/n]?: " -n 1 -r
   echo
